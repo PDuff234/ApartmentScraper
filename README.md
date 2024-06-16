@@ -1,6 +1,4 @@
 
-# README: Setting Up a Python Virtual Environment and Installing Packages
-
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
 2. [Windows Instructions](#windows-instructions)
