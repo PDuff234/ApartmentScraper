@@ -25,19 +25,19 @@ def get_total_pages(driver):
 def scrape_apartments(base_url):
     options = Options()
     options.headless = True  # Run headless Chrome
-    
+
     # Set up WebDriver
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
     driver.get(base_url)
 
     wait = WebDriverWait(driver, 10)
-    
+
     data = []
-    
+
     def scrape_current_page():
         listings = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'placard')))
-        
+
         for listing in listings:
             try:
                 title_elem = element_exists(By.CLASS_NAME, 'property-title', listing)
@@ -64,7 +64,7 @@ def scrape_apartments(base_url):
                 amenities = amenities_elem.text if amenities_elem else None
                 badge = badge_elem.text if badge_elem else None
                 url = url_elem.get_attribute('href') if url_elem else None
-                
+
                 data.append({
                     'Title': title,
                     'Address': address,
@@ -81,7 +81,7 @@ def scrape_apartments(base_url):
 
     # Get the total number of pages
     total_pages = get_total_pages(driver)
-    
+
     # Iterate through each page
     for page in range(1, total_pages + 1):
         if page > 1:
